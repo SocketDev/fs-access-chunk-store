@@ -1,7 +1,7 @@
 {
   "name": "fs-access-chunk-store",
   "description": "File System Access API chunk store that is abstract-chunk-store compliant",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": {
     "name": "Socket Inc",
     "email": "eng@socket.dev",
