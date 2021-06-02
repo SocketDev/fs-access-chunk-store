@@ -44,7 +44,7 @@ class WebFsChunkStore {
     return chunk
   }
 
-  async put (index, buf, cb = () => {}) {
+  put (index, buf, cb = () => {}) {
     if (this.closed) {
       queueMicrotask(() => cb(new Error('Storage is closed')))
       return
@@ -64,25 +64,25 @@ class WebFsChunkStore {
       return
     }
 
-    try {
-      const chunk = await this._getChunk(index)
-      const fileHandle = await chunk.fileHandlePromise
-      const stream = await fileHandle.createWritable({
-        keepExistingData: false
-      })
-      await stream.write(buf)
-      await stream.close()
-    } catch (err) {
-      queueMicrotask(() => {
+    ;(async () => {
+      try {
+        const chunk = await this._getChunk(index)
+        const fileHandle = await chunk.fileHandlePromise
+        const stream = await fileHandle.createWritable({
+          keepExistingData: false
+        })
+        await stream.write(buf)
+        await stream.close()
+      } catch (err) {
         cb(err)
-      })
-      return
-    }
+        return
+      }
 
-    cb(null)
+      cb(null)
+    })()
   }
 
-  async get (index, opts, cb = () => {}) {
+  get (index, opts, cb = () => {}) {
     if (typeof opts === 'function') {
       return this.get(index, null, opts)
     }
@@ -99,28 +99,30 @@ class WebFsChunkStore {
     const offset = opts.offset || 0
     const len = opts.length || chunkLength - offset
 
-    let buf
-    try {
-      const chunk = await this._getChunk(index)
-      const fileHandle = await chunk.fileHandlePromise
-      let file = await fileHandle.getFile()
-      if (offset !== 0 || len !== chunkLength) {
-        file = file.slice(offset, len + offset)
+    ;(async () => {
+      let buf
+      try {
+        const chunk = await this._getChunk(index)
+        const fileHandle = await chunk.fileHandlePromise
+        let file = await fileHandle.getFile()
+        if (offset !== 0 || len !== chunkLength) {
+          file = file.slice(offset, len + offset)
+        }
+        buf = await file.arrayBuffer()
+      } catch (err) {
+        cb(err)
+        return
       }
-      buf = await file.arrayBuffer()
-    } catch (err) {
-      queueMicrotask(() => cb(err))
-      return
-    }
 
-    if (buf.byteLength === 0) {
-      const err = new Error(`Index ${index} does not exist`)
-      err.notFound = true
-      cb(err)
-      return
-    }
+      if (buf.byteLength === 0) {
+        const err = new Error(`Index ${index} does not exist`)
+        err.notFound = true
+        cb(err)
+        return
+      }
 
-    cb(null, Buffer.from(buf))
+      cb(null, Buffer.from(buf))
+    })()
   }
 
   close (cb = () => {}) {
