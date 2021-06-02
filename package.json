@@ -1,0 +1,40 @@
+{
+  "name": "fs-access-chunk-store",
+  "description": "File System Access API chunk store that is abstract-chunk-store compliant",
+  "version": "0.0.0",
+  "author": {
+    "name": "Socket Inc",
+    "email": "eng@socket.dev",
+    "url": "https://socket.dev"
+  },
+  "bugs": {
+    "url": "https://github.com/SocketDev/fs-access-chunk-store/issues"
+  },
+  "devDependencies": {
+    "abstract-chunk-store": "^1.5.0",
+    "standard": "*",
+    "tape": "^5.2.2"
+  },
+  "homepage": "https://github.com/SocketDev/fs-access-chunk-store",
+  "keywords": [
+    "abstract-chunk-store",
+    "chunk",
+    "webfs",
+    "file system access api",
+    "filesystem access",
+    "file system access",
+    "FileSystemHandle",
+    "FileSystemFileHandle",
+    "FileSystemDirectoryHandle",
+    "FileSystemWritableFileStream"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SocketDev/fs-access-chunk-store.git"
+  },
+  "scripts": {
+    "test": "standard"
+  }
+}
