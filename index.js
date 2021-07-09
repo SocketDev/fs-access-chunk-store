@@ -18,7 +18,7 @@ class WebFsChunkStore {
 
     this.name = opts.name || 'default'
 
-    this.rootDirPromise = opts.directory || navigator.storage.getDirectory()
+    this.rootDirPromise = opts.rootDir || navigator.storage.getDirectory()
     this.storageDirPromise = this._getStorageDirectoryHandle()
 
     this.chunks = []

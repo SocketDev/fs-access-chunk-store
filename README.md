@@ -34,6 +34,12 @@ chunks.put(0, new Buffer('01234567890'), function (err) {
 })
 ```
 
+## Options
+
+- `length`: Total size of the chunk store (optional, default: `Infinity`)
+- `name`: Top-level directory to create for this store (optional, default: `default`)
+- `rootDir`: Root directory handle (optional, default: `navigator.storage.getDirectory()`)
+
 ## License
 
 MIT. Copyright (c) [Socket Inc](https://socket.dev)
