@@ -236,7 +236,7 @@ class WebFsChunkStore {
           queueMicrotask(() => cb(new Error('No files matching the request range')))
         }
       }
-      if (rangeFrom === rangeTo) return queueMicrotask(() => cb(new Uint8Array(0)))
+      if (rangeFrom === rangeTo) return queueMicrotask(() => cb(null, new Uint8Array(0)))
 
       const promises = targets.map(target => {
         return (async () => {
