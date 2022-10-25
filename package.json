@@ -11,9 +11,12 @@
     "url": "https://github.com/SocketDev/fs-access-chunk-store/issues"
   },
   "devDependencies": {
+    "@types/node": "^18.11.5",
+    "@types/wicg-native-file-system": "^2020.6.0",
     "abstract-chunk-store": "^1.5.0",
     "standard": "*",
-    "tape": "^5.2.2"
+    "tape": "^5.2.2",
+    "typescript": "^4.8.4"
   },
   "homepage": "https://github.com/SocketDev/fs-access-chunk-store",
   "keywords": [
@@ -35,6 +38,7 @@
     "url": "git://github.com/SocketDev/fs-access-chunk-store.git"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "build": "tsc"
   }
 }
